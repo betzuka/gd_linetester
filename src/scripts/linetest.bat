@@ -1,0 +1,1 @@
+java -jar linetester-1.0-SNAPSHOT-shaded.jar

@@ -67,7 +67,7 @@
         <version>2.5.3</version>
         <configuration>
         	<outputDirectory>${project.basedir}/builds</outputDirectory>
-        	<finalName>laser</finalName>
+        	<finalName>linetester</finalName>
         	<appendAssemblyId>false</appendAssemblyId>
           <descriptor>src/assembly/assembly.xml</descriptor>
         </configuration>
