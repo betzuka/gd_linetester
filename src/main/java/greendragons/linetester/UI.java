@@ -35,6 +35,7 @@ import com.fazecast.jSerialComm.SerialPort;
 
 public class UI extends JFrame {
 
+	private final boolean useLaser = System.getProperty("noLaser")==null;
 	private final int baseForce = 5000;
 	private final int holdTimeSeconds = 5;
 	private final int stepSize = 5000;
@@ -312,7 +313,7 @@ public class UI extends JFrame {
 			model.addRow(new Object [] {
 				result.getTargetForce()/1000f,
 				(result.isLineBreak() ? result.getLastForceAchieved() : result.getForceAchieved())/1000f,
-				result.getLength(),
+				result.getLength()/10f,
 				result.isSuccess() ? "Pass" : "Fail" + (result.isLineBreak() ? " (line broke)" : "")
 			});
 			chart.onResult(result);
@@ -346,7 +347,7 @@ public class UI extends JFrame {
 				double [] y = new double[results.size()];
 				for (int i=0;i<results.size();i++) {
 					result = results.get(i);
-					y[i] = i;
+					y[i] = useLaser ? (result.getLength()-results.get(0).getLength())/10f : i;
 					x[i] = (result.isLineBreak() ? result.getLastForceAchieved() : result.getForceAchieved())/1000f;
 				}
 				chart.addSeries("Measurements", x, y).setMarker(SeriesMarkers.DIAMOND).setLineColor(Color.red);
