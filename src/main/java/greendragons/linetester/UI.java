@@ -38,9 +38,10 @@ public class UI extends JFrame {
 	private final boolean useLaser = System.getProperty("noLaser")==null;
 	private final int baseForce = 5000;
 	private final int holdTimeSeconds = 5;
-	private final int stepSize = 5000;
+	private final int minStepSize = 5000;
+	private final int maxSteps = 5;
 	
-	private final Integer [] steps = {5,10,15,20,25,30,35,40,45,50,55,60};
+	private static Integer [] steps = {5,10,15,20,25,30,35,40,45,50,55,60,65,70,75,80,85,90,95,100,105,110,115,120};
 	
 	private Controller controller;
 	
@@ -57,7 +58,7 @@ public class UI extends JFrame {
 	    }
 	}
 	
-	
+	  
 	
 	private class Controller implements MachineObserver {
 		private Machine machine;
@@ -109,6 +110,11 @@ public class UI extends JFrame {
 		private void startTest(int force, boolean stepped) {
 			List<Integer> forces = new ArrayList<>();
 			if (stepped) {
+				int stepSize = ((force/maxSteps)/minStepSize)*minStepSize;
+				if (stepSize==0) {
+					stepSize = minStepSize;
+				}
+				
 				for (int i=baseForce;i<force;i+=stepSize) {
 					forces.add(i);
 				}
